@@ -1,8 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import PayeeCard from './PayeeCard';
-import PayeeList from './PayeeList';
 
 class App extends React.Component {
   constructor(props){
