@@ -8,7 +8,12 @@ class App extends React.Component {
   constructor(props){
     super(props)
 
-    this.state = { Payments: null};
+    this.state = { 
+      Payments: null,
+      currentPage: 1
+    };
+
+    this.btnNextPage = this.btnNextPage.bind(this);
   }
 
   getAllData = async () => {
@@ -21,6 +26,13 @@ class App extends React.Component {
           console.log(data[i])
           tempArray.push(data[i]);
         }
+        tempArray.sort(function(a, b){
+          var nameA = a.Payee.Name;
+          var nameB = b.Payee.Name;
+          if(nameA < nameB){
+            return -1
+          }
+        })
         this.setState({Payments: tempArray})
         console.log(this.state)
       })
@@ -39,6 +51,21 @@ class App extends React.Component {
     this.getAllData()
   }
 
+  btnNextPage = () => {
+    if(this.state.currentPage < this.state.Payments.length - 1){
+      this.setState({currentPage: this.state.currentPage + 1});
+    } else {
+      this.disabled = true;
+    }
+  }
+
+  btnPrevPage = () => {
+    if(this.state.currentPage > 1){
+      this.setState({currentPage: this.state.currentPage - 1});
+    } else {
+      this.disabled = true;
+    }
+  }
 
 render() {
   if(this.state.Payments === null){
@@ -57,8 +84,9 @@ render() {
     }
       return (
         <div className="App">
-          <PayeeList payees={payeesArr}/>
-          {elements}
+          <PayeeCard payee={this.state.Payments[this.state.currentPage].Payee}/>
+          <button onClick={this.btnPrevPage}>Previous Page</button>
+          <button onClick={this.btnNextPage}>Next Page</button>
         </div>)
         }
 }
