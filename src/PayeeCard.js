@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Payment(props) {
+function PayeeCard(props) {
     return (
         <div>
             <h1>
@@ -16,4 +16,4 @@ function Payment(props) {
     )
 }
 
-export default Payment;
+export default PayeeCard;

@@ -1,7 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Payment from './Payment';
+import PayeeCard from './PayeeCard';
+import PayeeList from './PayeeList';
 
 class App extends React.Component {
   constructor(props){
@@ -46,14 +47,17 @@ render() {
     )
   } else {
     let elements = [];
+    let payeesArr = [];
     for(let i = 0; i < this.state.Payments.length; i++){
-      elements.push(<Payment 
+      elements.push(<PayeeCard 
         payee={this.state.Payments[i].Payee} 
         payment={this.state.Payments[i].Payment}
       />)
+      payeesArr.push(this.state.Payments[i].Payee.Name)
     }
       return (
         <div className="App">
+          <PayeeList payees={payeesArr}/>
           {elements}
         </div>)
         }
