@@ -1,93 +1,111 @@
 import React from 'react';
 import './App.css';
 import PayeeCard from './PayeeCard';
+import PageButton from './PageButton';
+import PayeeSelect from './PayeeSelect';
+
 
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
 
-    this.state = { 
-      Payments: null,
-      currentPage: 1
+    this.state = {
+      PaymentData: null,
+      currentPage: 0,
+      pagesStart: 0,
+      pagesEnd: 3
     };
 
-    this.btnNextPage = this.btnNextPage.bind(this);
+    //this.btnNextPage = this.btnNextPage.bind(this);
   }
 
   getAllData = async () => {
     fetch('http://localhost:8000/')
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        //console.log(data);
         let tempArray = [];
-        for(let i = 0; i < data.length; i++){
-          console.log(data[i])
+        for (let i = 0; i < data.length; i++) {
           tempArray.push(data[i]);
         }
-        tempArray.sort(function(a, b){
+        tempArray.sort(function (a, b) {
           var nameA = a.Payee.Name;
           var nameB = b.Payee.Name;
-          if(nameA < nameB){
+          if (nameA < nameB) {
             return -1
           }
         })
-        this.setState({Payments: tempArray})
-        console.log(this.state)
+        this.setState({ PaymentData: tempArray })
       })
   }
 
-  getIndPayment = async (index) => {
-    fetch(`http://localhost:8000/${index}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        //this.setState({Payee: tempArray})
-      })
-  }
-
-  componentWillMount(){
+  componentWillMount() {
     this.getAllData()
   }
 
   btnNextPage = () => {
-    if(this.state.currentPage < this.state.Payments.length - 1){
-      this.setState({currentPage: this.state.currentPage + 1});
-    } else {
-      this.disabled = true;
+    if (this.state.currentPage < this.state.PaymentData.length - 1) {
+      this.setState({ currentPage: this.state.currentPage + 1 });
     }
   }
 
   btnPrevPage = () => {
-    if(this.state.currentPage > 1){
-      this.setState({currentPage: this.state.currentPage - 1});
-    } else {
-      this.disabled = true;
+    if (this.state.currentPage >= 1) {
+      this.setState({ currentPage: this.state.currentPage - 1 });
+    } 
+  }
+
+  goToStart = () => {
+    if (this.state.currentPage !== 0) {
+      this.setState({ currentPage: 0 })
     }
   }
 
-render() {
-  if(this.state.Payments === null){
-    return(
-      <div className="App">Loading...</div>
-    )
-  } else {
-    let elements = [];
-    let payeesArr = [];
-    for(let i = 0; i < this.state.Payments.length; i++){
-      elements.push(<PayeeCard 
-        payee={this.state.Payments[i].Payee} 
-        payment={this.state.Payments[i].Payment}
-      />)
-      payeesArr.push(this.state.Payments[i].Payee.Name)
+  goToEnd = () => {
+    if (this.state.currentPage !== this.state.PaymentData.length - 1) {
+      this.setState({ currentPage: this.state.PaymentData.length - 1 })
     }
+  }
+
+  goToSelected = (val) => {
+    this.setState({ currentPage: val });
+  }
+
+  render() {
+    if (this.state.PaymentData === null) {
+      return (
+        <div className="App">Loading...</div>
+      )
+    } else {
       return (
         <div className="App">
-          <PayeeCard payee={this.state.Payments[this.state.currentPage].Payee}/>
-          <button onClick={this.btnPrevPage}>Previous Page</button>
-          <button onClick={this.btnNextPage}>Next Page</button>
+          <PayeeCard
+            payee={this.state.PaymentData[this.state.currentPage].Payee}
+            payment={this.state.PaymentData[this.state.currentPage].Payment}
+            remittance={this.state.PaymentData[this.state.currentPage].Remittance}
+          />
+          <PageButton
+            handleClick={this.goToStart}
+            operation='<<'
+          />
+          <PageButton
+            handleClick={this.btnPrevPage}
+            operation='<'
+          />
+          <p style={{ display: 'inline', marginRight: '5px', marginLeft: '5px' }}>Page {this.state.currentPage + 1} of {this.state.PaymentData.length}</p>
+          <PageButton
+            handleClick={this.btnNextPage}
+            operation='>' />
+          <PageButton
+            handleClick={this.goToEnd}
+            operation='>>'
+          />
+          <PayeeSelect paymentData={this.state.PaymentData} handleChange={this.goToSelected}/>
+          
+
         </div>)
-        }
-}
+    }
+  }
 
 }
 export default App;
