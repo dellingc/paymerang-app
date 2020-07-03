@@ -52,7 +52,7 @@ class App extends React.Component {
   btnPrevPage = () => {
     if (this.state.currentPage >= 1) {
       this.setState({ currentPage: this.state.currentPage - 1 });
-    } 
+    }
   }
 
   goToStart = () => {
@@ -84,25 +84,25 @@ class App extends React.Component {
             payment={this.state.PaymentData[this.state.currentPage].Payment}
             remittance={this.state.PaymentData[this.state.currentPage].Remittance}
           />
-          <PageButton
-            handleClick={this.goToStart}
-            operation='<<'
-          />
-          <PageButton
-            handleClick={this.btnPrevPage}
-            operation='<'
-          />
-          <p style={{ display: 'inline', marginRight: '5px', marginLeft: '5px' }}>Page {this.state.currentPage + 1} of {this.state.PaymentData.length}</p>
-          <PageButton
-            handleClick={this.btnNextPage}
-            operation='>' />
-          <PageButton
-            handleClick={this.goToEnd}
-            operation='>>'
-          />
-          <PayeeSelect paymentData={this.state.PaymentData} handleChange={this.goToSelected}/>
-          
-
+            <div className='pageControls'>
+              <PageButton
+                handleClick={this.goToStart}
+                operation='<<'
+              />
+              <PageButton
+                handleClick={this.btnPrevPage}
+                operation='<'
+              />
+              <p className='pageBtns'>Page {this.state.currentPage + 1} of {this.state.PaymentData.length}</p>
+              <PageButton
+                handleClick={this.btnNextPage}
+                operation='>' />
+              <PageButton
+                handleClick={this.goToEnd}
+                operation='>>'
+              />
+              <PayeeSelect paymentData={this.state.PaymentData} handleChange={this.goToSelected} />
+            </div>
         </div>)
     }
   }

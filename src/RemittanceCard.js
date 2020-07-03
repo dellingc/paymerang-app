@@ -3,24 +3,25 @@ import './index.css';
 
 function RemittanceCard(props) {
     return (
-        <div style={{marginBottom: '10px', border: 'solid black 2px'}}>
+        <div style={{marginBottom: '10px'}}>
             <table>
                 <tr>
-                    <td>Payor Name: {props.payor.PayorName}</td>
+                    <td><strong>Payor Name:</strong> {props.payor.PayorName}</td>
                 </tr>
                 <tr>
-                    <td>Payor ID: {props.payor.PayorId}</td>
+                    <td><strong>Payor ID:</strong> {props.payor.PayorId}</td>
                 </tr>
                 <tr>
-                    <td>Invoice Number: {props.payor.InvoiceNo}</td>
+                    <td><strong>Invoice Number:</strong> {props.payor.InvoiceNo}</td>
                 </tr>
                 <tr>
-                    <td>Amount: {props.payor.Amount}</td>
+                    <td><strong>Amount:</strong> {props.payor.Amount}</td>
                 </tr>
                 <tr>
-                    <td>Description: {props.payor.Description}</td>
+                    <td><strong>Description:</strong> {props.payor.Description}</td>
                 </tr>
             </table>
+            <hr style={{color: '#eee'}}/>
         </div>
     )
 }

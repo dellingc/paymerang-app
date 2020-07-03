@@ -5,30 +5,49 @@ import PaymentCard from './PaymentCard';
 function PayeeCard(props) {
     let remCards = [];
     props.remittance.forEach(payor => {
-        remCards.push(<RemittanceCard payor={payor}/>)
+        remCards.push(<RemittanceCard payor={payor} />)
     })
     return (
         <div>
-            <h1>
-                {props.payee.Name}
-            </h1>
-            <div>
-                    <p><strong>Fax:</strong> {props.payee.Fax}</p>
-                    <p><strong>Phone:</strong> {props.payee.Phone}</p>
-                    <p><strong>Address:</strong></p>
-                    <p>{props.payee.Address.Address1} </p>
-                    <p>{props.payee.Address.City}, {props.payee.Address.StateOrProvince} {props.payee.Address.PostalCode}</p>
-                    <p><strong>Attention:</strong> {props.payee.Attention}</p>
-                    <p><strong>Submission Date:</strong> {props.payee.SubmissionDate}</p>
+            <div className='container'>
+                <div className='payeeDiv'>
+                    <h1>
+                        {props.payee.Name}
+                    </h1>
+                    <table>
+                        <tr>
+                            <td><strong>Fax:</strong> {props.payee.Fax}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phone:</strong> {props.payee.Phone}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Address: </strong>
+                                <span>{props.payee.Address.Address1}, </span>
+                                <span>{props.payee.Address.City}, {props.payee.Address.StateOrProvince} {props.payee.Address.PostalCode}</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Attention:</strong> {props.payee.Attention}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Submission Date:</strong> {props.payee.SubmissionDate}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div className='paymentDiv'>
+                    <h2>Payment Card Information</h2>
+                    <PaymentCard payment={props.payment} />
+                </div>
             </div>
+
             <div>
-                <h3>Payment Card Information</h3>
-                <PaymentCard payment={props.payment}/>
+                <div className='remDiv'>
+                    <h2 className='remHeader'>Remittance</h2>
+                    {remCards}
+                </div>
+
             </div>
-            <div>
-            <h3>Remittance</h3>
-                {remCards}
-            </div>
+
         </div>
     )
 }

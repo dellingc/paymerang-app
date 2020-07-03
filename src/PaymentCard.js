@@ -1,17 +1,18 @@
 import React from 'react';
+import './App.css';
 
 function PaymentCard(props) {
     return (
-        <div style={{border: 'solid black 2px'}}>
+        <div className='cardInfo'>
             <table>
                 <tr>
-                    <td>PAN: {props.payment.PAN}</td>
+                    <td><strong>PAN:</strong> {props.payment.PAN}</td>
                 </tr>
                 <tr>
-                    <td>CVV: {props.payment.CVV}</td>
+                    <td><strong>CVV:</strong> {props.payment.CVV}</td>
                 </tr>
                 <tr>
-                    <td>Exp: {props.payment.Exp}</td>
+                    <td><strong>Exp:</strong> {props.payment.Exp}</td>
                 </tr>
             </table>
         </div>

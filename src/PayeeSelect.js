@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 
 class PayeeSelect extends React.Component {
     constructor(props) {
@@ -22,7 +23,7 @@ class PayeeSelect extends React.Component {
                 </option>)
         })
         return (
-            <select onChange={this.getSelectedValue}>
+            <select className='pageBtns' onChange={this.getSelectedValue}>
                 <option>Jump to company</option>
                 {options}
             </select>
