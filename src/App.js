@@ -1,8 +1,11 @@
 import React from 'react';
 import './App.css';
 import PayeeCard from './PayeeCard';
-import PageButton from './PageButton';
+import PageBtnNext from './PageBtnNext';
 import PayeeSelect from './PayeeSelect';
+import PageBtnLast from './PageBtnLast';
+import PageBtnFirst from './PageBtnFirst';
+import PageBtnPrev from './PageBtnPrev';
 
 
 class App extends React.Component {
@@ -71,6 +74,10 @@ class App extends React.Component {
     this.setState({ currentPage: val });
   }
 
+  checkCurrentPage = () => {
+    return this.state.currentPage;
+  }
+
   render() {
     if (this.state.PaymentData === null) {
       return (
@@ -79,30 +86,37 @@ class App extends React.Component {
     } else {
       return (
         <div className="App">
+          <div className='selectDiv'>
+          <span><strong>Select Payee: </strong></span>
+            <PayeeSelect paymentData={this.state.PaymentData} handleChange={this.goToSelected} />
+          </div>
           <PayeeCard
             payee={this.state.PaymentData[this.state.currentPage].Payee}
             payment={this.state.PaymentData[this.state.currentPage].Payment}
             remittance={this.state.PaymentData[this.state.currentPage].Remittance}
           />
-            <div className='pageControls'>
-              <PageButton
-                handleClick={this.goToStart}
-                operation='<<'
-              />
-              <PageButton
-                handleClick={this.btnPrevPage}
-                operation='<'
-              />
-              <p className='pageBtns'>Page {this.state.currentPage + 1} of {this.state.PaymentData.length}</p>
-              <PageButton
-                handleClick={this.btnNextPage}
-                operation='>' />
-              <PageButton
-                handleClick={this.goToEnd}
-                operation='>>'
-              />
-              <PayeeSelect paymentData={this.state.PaymentData} handleChange={this.goToSelected} />
-            </div>
+          <div className='pageControls'>
+            <PageBtnFirst
+              handleClick={this.goToStart}
+              checkCurrentPage={this.checkCurrentPage}
+              operation='<<'
+            />
+            <PageBtnPrev
+              handleClick={this.btnPrevPage}
+              checkCurrentPage={this.checkCurrentPage}
+              operation='<'
+            />
+            <p className='pageBtns'>Page {this.state.currentPage + 1} of {this.state.PaymentData.length}</p>
+            <PageBtnNext
+              handleClick={this.btnNextPage}
+              checkCurrentPage={this.checkCurrentPage}
+              operation='>' />
+            <PageBtnLast
+              handleClick={this.goToEnd}
+              checkCurrentPage={this.checkCurrentPage}
+              operation='>>'
+            />
+          </div>
         </div>)
     }
   }

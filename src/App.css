@@ -11,6 +11,10 @@ hr {
   border-top: solid 1px #eee;
 }
 
+.pageCtrl {
+  height: 30px;
+}
+
 .pageBtns {
   display: inline;
   margin: 0px 5px 0px 5px;

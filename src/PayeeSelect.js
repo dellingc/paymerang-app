@@ -8,7 +8,7 @@ class PayeeSelect extends React.Component {
 
     getSelectedValue = (e) => {
         let selectedVal = e.target.value;
-        if(selectedVal !== 'Jump to company'){
+        if(selectedVal !== '---'){
             this.props.handleChange(parseInt(selectedVal));
         } 
     }
@@ -24,7 +24,7 @@ class PayeeSelect extends React.Component {
         })
         return (
             <select className='pageBtns' onChange={this.getSelectedValue}>
-                <option>Jump to company</option>
+                <option>---</option>
                 {options}
             </select>
         )
