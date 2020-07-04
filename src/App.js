@@ -1,11 +1,9 @@
 import React from 'react';
 import './App.css';
 import PayeeCard from './PayeeCard';
-import PageBtnNext from './PageBtnNext';
 import PayeeSelect from './PayeeSelect';
-import PageBtnLast from './PageBtnLast';
-import PageBtnFirst from './PageBtnFirst';
-import PageBtnPrev from './PageBtnPrev';
+import PageBtn from './PageBtn';
+
 
 
 class App extends React.Component {
@@ -14,19 +12,15 @@ class App extends React.Component {
 
     this.state = {
       PaymentData: null,
-      currentPage: 0,
-      pagesStart: 0,
-      pagesEnd: 3
+      currentPage: 0
     };
-
-    //this.btnNextPage = this.btnNextPage.bind(this);
   }
 
+  //fetch the data from the server, sort it, and store it in state
   getAllData = async () => {
     fetch('http://localhost:8000/')
       .then(response => response.json())
       .then(data => {
-        //console.log(data);
         let tempArray = [];
         for (let i = 0; i < data.length; i++) {
           tempArray.push(data[i]);
@@ -42,38 +36,30 @@ class App extends React.Component {
       })
   }
 
-  componentWillMount() {
+  //Fetch the data after component mounts
+  componentDidMount() {
     this.getAllData()
   }
 
-  btnNextPage = () => {
-    if (this.state.currentPage < this.state.PaymentData.length - 1) {
+  //Function to change pages
+  changePage = (current, total, btnType) => {
+    if(current < total && btnType === 'next'){
       this.setState({ currentPage: this.state.currentPage + 1 });
-    }
-  }
-
-  btnPrevPage = () => {
-    if (this.state.currentPage >= 1) {
+    } else if (current > 0 && btnType === 'prev'){
       this.setState({ currentPage: this.state.currentPage - 1 });
+    } else if (current > 0 && btnType === 'first'){
+      this.setState({ currentPage: 0 });
+    } else if (current !== total - 1 && btnType === 'last'){
+      this.setState({ currentPage: total - 1 });
     }
   }
 
-  goToStart = () => {
-    if (this.state.currentPage !== 0) {
-      this.setState({ currentPage: 0 })
-    }
-  }
-
-  goToEnd = () => {
-    if (this.state.currentPage !== this.state.PaymentData.length - 1) {
-      this.setState({ currentPage: this.state.PaymentData.length - 1 })
-    }
-  }
-
+  //Function to go to the page selected in the dropdown box
   goToSelected = (val) => {
     this.setState({ currentPage: val });
   }
 
+  //Function that passes the current page number to the page buttons
   checkCurrentPage = () => {
     return this.state.currentPage;
   }
@@ -96,24 +82,32 @@ class App extends React.Component {
             remittance={this.state.PaymentData[this.state.currentPage].Remittance}
           />
           <div className='pageControls'>
-            <PageBtnFirst
-              handleClick={this.goToStart}
+            <PageBtn
+              handleClick={this.changePage}
+              total={this.state.PaymentData.length}
+              btnType='first'
               checkCurrentPage={this.checkCurrentPage}
               operation='<<'
             />
-            <PageBtnPrev
-              handleClick={this.btnPrevPage}
+            <PageBtn
+              handleClick={this.changePage}
               checkCurrentPage={this.checkCurrentPage}
+              btnType='prev'
+              total={this.state.PaymentData.length}
               operation='<'
             />
             <p className='pageBtns'>Page {this.state.currentPage + 1} of {this.state.PaymentData.length}</p>
-            <PageBtnNext
-              handleClick={this.btnNextPage}
+            <PageBtn
+              handleClick={this.changePage}
               checkCurrentPage={this.checkCurrentPage}
+              total={this.state.PaymentData.length}
+              btnType='next'
               operation='>' />
-            <PageBtnLast
-              handleClick={this.goToEnd}
+            <PageBtn
+              handleClick={this.changePage}
               checkCurrentPage={this.checkCurrentPage}
+              btnType='last'
+              total={this.state.PaymentData.length}
               operation='>>'
             />
           </div>
