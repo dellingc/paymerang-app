@@ -1,3 +1,20 @@
+## Paymerang App
+
+This application displays the data retrieved from the Paymerang API. It makes a GET request to the API and recieves the JSON object containing all of the payment information. 
+
+## Instructions
+
+Clone the repository and install node packages
+```
+git clone https://github.com/dellingc/paymerang-app.git
+npm install
+npm run start
+```
+
+## Troubleshooting
+The app is configured to run at http://localhost:3000, this may need to be changed in your local environment. The Paymerang API server must be running in order to recieve the data to display.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -20,8 +20,9 @@ hr {
   margin: 0px 5px 0px 5px;
 }
 
-.paymentDiv {
+.paymentCardDiv {
   margin-top: 50px;
+  margin-left: 50px;
 }
 
 .payeeDiv {

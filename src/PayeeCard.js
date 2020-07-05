@@ -34,7 +34,7 @@ function PayeeCard(props) {
                         </tr>
                     </table>
                 </div>
-                <div className='paymentDiv'>
+                <div className='paymentCardDiv'>
                     <h2>Payment Card Information</h2>
                     <PaymentCard payment={props.payment} />
                 </div>

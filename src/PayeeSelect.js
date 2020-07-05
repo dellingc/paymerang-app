@@ -2,9 +2,6 @@ import React from 'react';
 import './App.css';
 
 class PayeeSelect extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     getSelectedValue = (e) => {
         let selectedVal = e.target.value;
