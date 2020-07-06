@@ -1,17 +1,24 @@
 ## Paymerang App
 
-This application displays the data retrieved from the Paymerang API. It makes a GET request to the API and recieves the JSON object containing all of the payment information. 
+This application displays the data retrieved from the [Paymerang API](https://github.com/dellingc/Paymerang-API). It makes a GET request to the API and recieves the JSON object containing all of the payment information. 
 
 ## Instructions
 
 Clone the repository and install node packages
 ```
 git clone https://github.com/dellingc/paymerang-app.git
+cd paymerang-app
 npm install
 npm run start
 ```
 
 ## Troubleshooting
+If you encounter this error `Error: Cannot find module 'nan’` when attempting `npm install` follow the steps below.
+
+```
+npm install nan
+npm install
+```
 The app is configured to run at http://localhost:3000, this may need to be changed in your local environment. The Paymerang API server must be running in order to recieve the data to display.
 
 
