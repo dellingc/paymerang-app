@@ -3,7 +3,9 @@
 This application displays the data retrieved from the [Paymerang API](https://github.com/dellingc/Paymerang-API). It makes a GET request to the API and recieves the JSON object containing all of the payment information. 
 
 ## Instructions
+Click this [link](https://github.com/dellingc/Paymerang-API) to get the API setup. Follow readme instructions.
 
+Once the API is setup and running. Open a second terminal.
 Clone the repository and install node packages
 ```
 git clone https://github.com/dellingc/paymerang-app.git
