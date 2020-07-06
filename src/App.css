@@ -1,6 +1,8 @@
 .App {
   text-align: left;
-  padding: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .cardInfo {
@@ -33,10 +35,15 @@ hr {
   width: 75%;
 }
 
-
+.pageContent {
+  flex: 1 0 auto;
+  padding: 10px;
+}
 
 .pageControls {
   text-align: center;
+  flex-shrink: 0;
+  padding: 10px
 }
 
 .container {

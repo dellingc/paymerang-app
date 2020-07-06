@@ -43,13 +43,13 @@ class App extends React.Component {
 
   //Function to change pages
   changePage = (current, total, btnType) => {
-    if(current < total && btnType === 'next'){
+    if (current < total && btnType === 'next') {
       this.setState({ currentPage: this.state.currentPage + 1 });
-    } else if (current > 0 && btnType === 'prev'){
+    } else if (current > 0 && btnType === 'prev') {
       this.setState({ currentPage: this.state.currentPage - 1 });
-    } else if (current > 0 && btnType === 'first'){
+    } else if (current > 0 && btnType === 'first') {
       this.setState({ currentPage: 0 });
-    } else if (current !== total - 1 && btnType === 'last'){
+    } else if (current !== total - 1 && btnType === 'last') {
       this.setState({ currentPage: total - 1 });
     }
   }
@@ -72,15 +72,17 @@ class App extends React.Component {
     } else {
       return (
         <div className="App">
-          <div className='selectDiv'>
-          <span><strong>Select Payee: </strong></span>
-            <PayeeSelect paymentData={this.state.PaymentData} handleChange={this.goToSelected} />
+          <div className="pageContent">
+            <div className='selectDiv'>
+              <span><strong>Select Payee: </strong></span>
+              <PayeeSelect paymentData={this.state.PaymentData} handleChange={this.goToSelected} />
+            </div>
+            <PayeeCard
+              payee={this.state.PaymentData[this.state.currentPage].Payee}
+              payment={this.state.PaymentData[this.state.currentPage].Payment}
+              remittance={this.state.PaymentData[this.state.currentPage].Remittance}
+            />
           </div>
-          <PayeeCard
-            payee={this.state.PaymentData[this.state.currentPage].Payee}
-            payment={this.state.PaymentData[this.state.currentPage].Payment}
-            remittance={this.state.PaymentData[this.state.currentPage].Remittance}
-          />
           <div className='pageControls'>
             <PageBtn
               handleClick={this.changePage}
